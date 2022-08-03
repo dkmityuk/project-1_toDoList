@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Test Project#1 Five Systems
-//
-//  Created by Admin on 27.07.2022.
-//
-
 import UIKit
 import CoreData
 
