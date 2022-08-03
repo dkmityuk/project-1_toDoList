@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
     @IBAction func textChanged(_ sender: UITextField) {
         updateNextButtonState()
     }
-
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskViewController
@@ -34,4 +33,3 @@ class LoginViewController: UIViewController {
     }
     
 }
-
