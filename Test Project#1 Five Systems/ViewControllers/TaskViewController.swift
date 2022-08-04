@@ -44,7 +44,7 @@ class TaskViewController: UIViewController {
     
     @IBAction func addNewTaskButtonPressed(_ sender: UIButton) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "NewTaskViewController") as! NewTaskViewController
-        controller.refreshData = { [weak self] in
+        controller.refreshDataHandler = { [weak self] in
             guard let self = self else { return }
             self.taskTableView.reloadData()
         }

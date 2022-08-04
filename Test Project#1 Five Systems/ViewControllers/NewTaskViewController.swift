@@ -5,18 +5,18 @@ class NewTaskViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var dateField: UITextField!
-    let datePicker = UIDatePicker()
+    private let datePicker = UIDatePicker()
     
     @IBOutlet weak var timeField: UITextField!
-    let timePicker = UIDatePicker()
+    private let timePicker = UIDatePicker()
     @IBOutlet weak var saveButton: UIButton!
     
-    var refreshData: (() -> Void)?
+    var refreshDataHandler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDatePicker()
-        setTimePicker()
+        setupDatePicker()
+        setupTimePicker()
     }
     
     private func updatesaveButtonState() {
@@ -40,7 +40,7 @@ class NewTaskViewController: UIViewController {
         )
         do {
             try CoreDataManager.shared.save(task: taks)
-            refreshData?()
+            refreshDataHandler?()
             dismiss(animated: true)
         } catch let error  {
             print(error)
@@ -48,7 +48,7 @@ class NewTaskViewController: UIViewController {
         }
     }
     
-    func setDatePicker(){
+    private func setupDatePicker(){
         dateField.text = DateFormatter.userFriendlyDateFormatter.string(from: Date())
         dateField.inputView = datePicker
         datePicker.datePickerMode = .date
@@ -68,11 +68,11 @@ class NewTaskViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func getDateFromPicker() {
+    private func getDateFromPicker() {
         dateField.text = DateFormatter.userFriendlyDateFormatter.string(from: datePicker.date)
     }
     
-    func setTimePicker() {
+    private func setupTimePicker() {
         timeField.text = " -- : -- "
         timeField.inputView = timePicker
         timePicker.datePickerMode = .time
@@ -92,7 +92,7 @@ class NewTaskViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func getTimeFromPicker() {
+    private func getTimeFromPicker() {
         timeField.text = DateFormatter.userFriendlyTimeFormatter.string(from: timePicker.date)
     }
     
