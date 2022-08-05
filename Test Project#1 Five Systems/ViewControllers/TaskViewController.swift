@@ -14,7 +14,7 @@ class TaskViewController: UIViewController {
     
     var sectionItems: [SectionModel] {
         let tasks = CoreDataManager.shared.fetchTasks()
-        var datesArray = [Date]()
+        var datesArray = [String]()
         var sections = [SectionModel]()
         
         for task in tasks {
@@ -26,13 +26,12 @@ class TaskViewController: UIViewController {
         for date in datesArray {
             sections.append(
                 SectionModel(
-                    title: DateFormatter.userFriendlyDateFormatter.string(from: date),
+                    title: date,
                     items: tasks.filter { $0.date == date })
             )
         }
         return sections
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

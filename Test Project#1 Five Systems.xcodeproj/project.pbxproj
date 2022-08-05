@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		840AB1DC2893FE8F00870850 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AB1DB2893FE8F00870850 /* CoreDataManager.swift */; };
+		84438C76289D259800C98202 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84438C75289D259700C98202 /* UserModel.swift */; };
 		84A1E430289BBB57004D6FAD /* DateFormatter+Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1E42F289BBB57004D6FAD /* DateFormatter+Formatters.swift */; };
 		84AF32AD2891AD7800398287 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32AC2891AD7800398287 /* AppDelegate.swift */; };
 		84AF32AF2891AD7800398287 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32AE2891AD7800398287 /* SceneDelegate.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		840AB1DB2893FE8F00870850 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		84438C75289D259700C98202 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		84A1E42F289BBB57004D6FAD /* DateFormatter+Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Formatters.swift"; sourceTree = "<group>"; };
 		84AF32A92891AD7800398287 /* Test Project#1 Five Systems.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test Project#1 Five Systems.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AF32AC2891AD7800398287 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			children = (
 				840AB1DB2893FE8F00870850 /* CoreDataManager.swift */,
 				84CCA3BC289A70640010C99A /* TaskModel.swift */,
+				84438C75289D259700C98202 /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				84AF32C82891ADE600398287 /* NewTaskViewController.swift in Sources */,
 				840AB1DC2893FE8F00870850 /* CoreDataManager.swift in Sources */,
 				84AF32AF2891AD7800398287 /* SceneDelegate.swift in Sources */,
+				84438C76289D259800C98202 /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

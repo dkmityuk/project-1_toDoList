@@ -28,7 +28,7 @@ final class CoreDataManager {
     return persistentContainer.viewContext
   }
     
-  func save(task: TaskModel) throws {
+  func saveTask(task: TaskModel) throws {
     guard
       let entityDescription = NSEntityDescription
         .entity(forEntityName: "Task", in: mainMOC)
@@ -49,4 +49,5 @@ final class CoreDataManager {
     guard let tasks = try? mainMOC.fetch(fetchReuest) else { return [] }
     return tasks.compactMap { TaskModel(managedObject: $0) }
   }
+    
 }

@@ -35,11 +35,11 @@ class NewTaskViewController: UIViewController {
         let taks = TaskModel(
             text: titleTextField.text ?? "",
             description: descriptionTextField.text ?? "",
-            date: datePicker.date,
+            date: dateField.text ?? "",
             isDone: false
         )
         do {
-            try CoreDataManager.shared.save(task: taks)
+            try CoreDataManager.shared.saveTask(task: taks)
             refreshDataHandler?()
             dismiss(animated: true)
         } catch let error  {
