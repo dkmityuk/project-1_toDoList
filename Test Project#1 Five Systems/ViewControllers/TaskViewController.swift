@@ -1,17 +1,6 @@
 import UIKit
 import CoreData
 
-// MARK: - DateFormatters
-// Move to sepparate file
-// I will edit datePicker(It will be dateField) after that I move this part of code into NewTaskViewController
-extension DateFormatter {
-    static var userFriendlyFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MM YYYY "
-        return dateFormatter
-    }()
-}
-
 // MARK: - SectionModel
 struct SectionModel {
     let title: String
@@ -37,7 +26,7 @@ class TaskViewController: UIViewController {
         for date in datesArray {
             sections.append(
                 SectionModel(
-                    title: DateFormatter.userFriendlyFormatter.string(from: date),
+                    title: DateFormatter.userFriendlyDateFormatter.string(from: date),
                     items: tasks.filter { $0.date == date })
             )
         }
@@ -55,7 +44,7 @@ class TaskViewController: UIViewController {
     
     @IBAction func addNewTaskButtonPressed(_ sender: UIButton) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "NewTaskViewController") as! NewTaskViewController
-        controller.refreshData = { [weak self] in
+        controller.refreshDataHandler = { [weak self] in
             guard let self = self else { return }
             self.taskTableView.reloadData()
         }
