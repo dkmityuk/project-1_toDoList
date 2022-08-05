@@ -7,9 +7,9 @@ class TaskTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
+    func setUp(object: Task) {
+        self.taskDescriptionLabel.text = object.descr
+        self.taskNameLabel.text = object.title
+    }
 }

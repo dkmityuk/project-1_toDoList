@@ -39,7 +39,7 @@ class NewTaskViewController: UIViewController {
             isDone: false
         )
         do {
-            try CoreDataManager.shared.save(task: taks)
+            try CoreDataManager.shared.saveTask(task: taks)
             refreshDataHandler?()
             dismiss(animated: true)
         } catch let error  {

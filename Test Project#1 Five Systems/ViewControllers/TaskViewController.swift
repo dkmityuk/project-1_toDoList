@@ -33,7 +33,6 @@ class TaskViewController: UIViewController {
         return sections
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         taskTableView.delegate = self
