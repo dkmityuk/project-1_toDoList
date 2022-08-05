@@ -35,7 +35,7 @@ class NewTaskViewController: UIViewController {
         let taks = TaskModel(
             text: titleTextField.text ?? "",
             description: descriptionTextField.text ?? "",
-            date: datePicker.date,
+            date: dateField.text ?? "",
             isDone: false
         )
         do {

@@ -4,7 +4,7 @@ import Foundation
 struct TaskModel {
   let text: String
   let description: String
-  let date: Date
+  let date: String
   let isDone: Bool
 }
 
