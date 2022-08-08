@@ -79,6 +79,14 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         guard sectionItems.count - 1 >= section else { return nil }
         return sectionItems[section].title
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailTaskViewController{
+            let task: TaskModel
+            vc.selectedTask = sectionItems[indexPath.section].items[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 // MARK: - Constants

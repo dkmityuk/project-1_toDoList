@@ -21,6 +21,7 @@
 		84AF32C82891ADE600398287 /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32C72891ADE600398287 /* NewTaskViewController.swift */; };
 		84AF32CD2891AE8700398287 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32CB2891AE8700398287 /* TaskTableViewCell.swift */; };
 		84CCA3BD289A70640010C99A /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA3BC289A70640010C99A /* TaskModel.swift */; };
+		84E043BB28A1181300A70E8F /* DetailTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E043BA28A1181300A70E8F /* DetailTaskViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		84AF32C72891ADE600398287 /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 		84AF32CB2891AE8700398287 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		84CCA3BC289A70640010C99A /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		84E043BA28A1181300A70E8F /* DetailTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				84AF32C32891ADA900398287 /* LoginViewController.swift */,
 				84AF32C52891ADBE00398287 /* TaskViewController.swift */,
 				84AF32C72891ADE600398287 /* NewTaskViewController.swift */,
+				84E043BA28A1181300A70E8F /* DetailTaskViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				84AF32C82891ADE600398287 /* NewTaskViewController.swift in Sources */,
 				840AB1DC2893FE8F00870850 /* CoreDataManager.swift in Sources */,
 				84AF32AF2891AD7800398287 /* SceneDelegate.swift in Sources */,
+				84E043BB28A1181300A70E8F /* DetailTaskViewController.swift in Sources */,
 				84438C76289D259800C98202 /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
