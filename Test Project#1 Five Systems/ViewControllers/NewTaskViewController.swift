@@ -1,5 +1,6 @@
 import UIKit
 import CoreData
+import PhotosUI
 
 class NewTaskViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
@@ -10,6 +11,9 @@ class NewTaskViewController: UIViewController {
     @IBOutlet weak var timeField: UITextField!
     private let timePicker = UIDatePicker()
     @IBOutlet weak var saveButton: UIButton!
+  
+    @IBOutlet weak var taskImage: UIImageView!
+    
     
     var refreshDataHandler: (() -> Void)?
     
@@ -17,6 +21,7 @@ class NewTaskViewController: UIViewController {
         super.viewDidLoad()
         setupDatePicker()
         setupTimePicker()
+        taskImage.image = UIImage(named: "defaultTaskImage")
     }
     
     private func updatesaveButtonState() {
@@ -96,4 +101,34 @@ class NewTaskViewController: UIViewController {
         timeField.text = DateFormatter.userFriendlyTimeFormatter.string(from: timePicker.date)
     }
     
+    @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        
+        let phPickerVC = PHPickerViewController(configuration: config)
+        phPickerVC.delegate = self
+        self.present(phPickerVC, animated: true)
+    }
 }
+
+extension NewTaskViewController: PHPickerViewControllerDelegate{
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        print(results)
+        for item in results{
+            item.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                if let image = image as? UIImage {
+                    print(image)
+                    DispatchQueue.main.async {
+                        self.taskImage.image = image
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    
+}
+
+
