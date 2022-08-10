@@ -29,7 +29,9 @@ class LoginViewController: UIViewController {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskViewController
       
         self.navigationController?.pushViewController(controller, animated: true)
+//        controller.modalPresentationStyle = .fullScreen
 //        self.present(controller, animated: false, completion: nil)
+
     }
     
 }

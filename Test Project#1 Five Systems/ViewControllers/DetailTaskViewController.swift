@@ -2,6 +2,7 @@ import UIKit
 
 class DetailTaskViewController: UIViewController {
 
+    @IBOutlet weak var taskImageView: UIImageView!
     @IBOutlet weak var desriptionLabel: UILabel!
     
     var selectedTask: TaskModel!
@@ -10,6 +11,10 @@ class DetailTaskViewController: UIViewController {
         super.viewDidLoad()
         self.title = selectedTask.text
         desriptionLabel.text = selectedTask.description
+        
+        guard let image = selectedTask.taskImage else { return }
+        taskImageView.image = UIImage(data: image)
+        
     }
     
 

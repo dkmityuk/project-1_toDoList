@@ -41,7 +41,8 @@ class NewTaskViewController: UIViewController {
             text: titleTextField.text ?? "",
             description: descriptionTextField.text ?? "",
             date: dateField.text ?? "",
-            isDone: false
+            isDone: false,
+            taskImage: taskImage.image?.pngData()
         )
         do {
             try CoreDataManager.shared.saveTask(task: taks)
@@ -114,11 +115,9 @@ class NewTaskViewController: UIViewController {
 extension NewTaskViewController: PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
-        print(results)
         for item in results{
             item.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 if let image = image as? UIImage {
-                    print(image)
                     DispatchQueue.main.async {
                         self.taskImage.image = image
                     }
