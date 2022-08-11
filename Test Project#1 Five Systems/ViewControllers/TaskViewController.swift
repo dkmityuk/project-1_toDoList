@@ -37,8 +37,8 @@ class TaskViewController: UIViewController {
         super.viewDidLoad()
         taskTableView.delegate = self
         taskTableView.dataSource = self
-        
-        self.title = "Tasks"
+        taskTableView.register(UINib(nibName: "TTableViewCell", bundle: nil), forCellReuseIdentifier: "TTableViewCell")
+        title = "Tasks"
     }
     
     @IBAction func addNewTaskButtonPressed(_ sender: UIButton) {
@@ -65,7 +65,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.sellName, for: indexPath) as! TaskTableViewCell
+        guard let cell = taskTableView.dequeueReusableCell(withIdentifier: Constants.cellName, for: indexPath) as? TTableViewCell else { return UITableViewCell() }
         guard
             sectionItems.count - 1 >= indexPath.section,
             sectionItems[indexPath.section].items.count - 1 >= indexPath.row
@@ -81,10 +81,21 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailTaskViewController{
+        guard
+            sectionItems.count - 1 >= indexPath.section,
+            sectionItems[indexPath.section].items.count - 1 >= indexPath.row else { return }
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailTaskViewController {
             vc.selectedTask = sectionItems[indexPath.section].items[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }
 
@@ -92,5 +103,5 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
 fileprivate enum Constants {
     static let entity = "Task"
     static let sortDate = "date"
-    static let sellName = "taskCell"
+    static let cellName = "TTableViewCell"
 }
