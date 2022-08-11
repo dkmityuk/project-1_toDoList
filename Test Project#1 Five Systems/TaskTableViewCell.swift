@@ -1,6 +1,6 @@
 import UIKit
 
-class TTableViewCell: UITableViewCell {
+class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var taskNameLabel: UILabel!
     @IBOutlet weak var taskDescriptionLabel: UILabel!
     @IBOutlet weak var taskImageView: UIImageView!
