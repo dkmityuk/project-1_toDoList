@@ -11,7 +11,7 @@ class NewTaskViewController: UIViewController {
     @IBOutlet weak var timeField: UITextField!
     private let timePicker = UIDatePicker()
     @IBOutlet weak var saveButton: UIButton!
-  
+    
     @IBOutlet weak var taskImage: UIImageView!
     
     
@@ -112,7 +112,7 @@ class NewTaskViewController: UIViewController {
     }
 }
 
-extension NewTaskViewController: PHPickerViewControllerDelegate{
+extension NewTaskViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
         for item in results{
@@ -121,13 +121,10 @@ extension NewTaskViewController: PHPickerViewControllerDelegate{
                     DispatchQueue.main.async {
                         self.taskImage.image = image
                     }
-                    
                 }
             }
         }
     }
-    
-    
 }
 
 

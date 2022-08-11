@@ -70,7 +70,6 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
             sectionItems.count - 1 >= indexPath.section,
             sectionItems[indexPath.section].items.count - 1 >= indexPath.row
         else { return cell }
-        
         let model = sectionItems[indexPath.section].items[indexPath.row]
         cell.setUp(object: model)
         return cell
@@ -83,7 +82,6 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailTaskViewController{
-//            let task: TaskModel
             vc.selectedTask = sectionItems[indexPath.section].items[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
         }
