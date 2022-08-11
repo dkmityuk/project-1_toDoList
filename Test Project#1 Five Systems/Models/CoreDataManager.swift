@@ -50,4 +50,26 @@ final class CoreDataManager {
     return tasks.compactMap { TaskModel(managedObject: $0) }
   }
     
+    func saveUser(user: UserModel) throws {
+      guard
+        let entityDescription = NSEntityDescription
+          .entity(forEntityName: "User", in: mainMOC)
+      else { throw CoreDataError.noEntityByDescription }
+      guard
+        let userMO = NSManagedObject(entity: entityDescription, insertInto: mainMOC) as? User
+      else { throw CoreDataError.errorCreatingMO }
+      user.fill(to: userMO)
+      do {
+        try mainMOC.save()
+      } catch let error {
+        throw error
+      }
+    }
+    
+    func fetchUsers() -> [UserModel] {
+      let fetchReuest: NSFetchRequest<User> = User.fetchRequest()
+      guard let users = try? mainMOC.fetch(fetchReuest) else { return [] }
+      return users.compactMap { UserModel(managedObject: $0) }
+    }
+    
 }

@@ -6,17 +6,17 @@ struct UserModel {
 }
 
 extension UserModel {
-    init?(managedObject: User) {
+    init?(UserMO: User) {
         guard
-            let name = managedObject.name,
-            let email = managedObject.email
+            let name = UserMO.name,
+            let email = UserMO.email
         else { return nil }
         self.name = name
         self.email = email
     }
     
-    func fill(to managedObject: User) {
-        managedObject.name = name
-        managedObject.email = email
+    func fill(to UserMO: User) {
+        UserMO.name = name
+        UserMO.email = email
     }
 }
