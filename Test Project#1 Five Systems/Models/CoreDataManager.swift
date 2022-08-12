@@ -69,7 +69,7 @@ final class CoreDataManager {
     func fetchUsers() -> [UserModel] {
       let fetchReuest: NSFetchRequest<User> = User.fetchRequest()
       guard let users = try? mainMOC.fetch(fetchReuest) else { return [] }
-      return users.compactMap { UserModel(managedObject: $0) }
+        return users.compactMap { UserModel(UserMO: $0) }
     }
     
 }

@@ -27,9 +27,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskViewController
-      
         self.navigationController?.pushViewController(controller, animated: true)
-//        self.present(controller, animated: false, completion: nil)
     }
     
 }

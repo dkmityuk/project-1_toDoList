@@ -4,7 +4,7 @@ import Foundation
 extension DateFormatter {
     static var userFriendlyDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MM YYYY "
+        dateFormatter.dateFormat = "d.MM.yy"
         return dateFormatter
     }()
     

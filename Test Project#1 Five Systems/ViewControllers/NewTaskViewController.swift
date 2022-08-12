@@ -1,15 +1,17 @@
 import UIKit
 import CoreData
+import PhotosUI
 
 class NewTaskViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var dateField: UITextField!
-    private let datePicker = UIDatePicker()
-    
     @IBOutlet weak var timeField: UITextField!
-    private let timePicker = UIDatePicker()
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var taskImage: UIImageView!
+    
+    private let datePicker = UIDatePicker()
+    private let timePicker = UIDatePicker()
     
     var refreshDataHandler: (() -> Void)?
     
@@ -17,6 +19,7 @@ class NewTaskViewController: UIViewController {
         super.viewDidLoad()
         setupDatePicker()
         setupTimePicker()
+        taskImage.image = UIImage(named: "defaultTaskImage")
     }
     
     private func updatesaveButtonState() {
@@ -36,7 +39,8 @@ class NewTaskViewController: UIViewController {
             text: titleTextField.text ?? "",
             description: descriptionTextField.text ?? "",
             date: dateField.text ?? "",
-            isDone: false
+            isDone: false,
+            taskImage: taskImage.image?.pngData()
         )
         do {
             try CoreDataManager.shared.saveTask(task: taks)
@@ -48,7 +52,7 @@ class NewTaskViewController: UIViewController {
         }
     }
     
-    private func setupDatePicker(){
+    private func setupDatePicker() {
         dateField.text = DateFormatter.userFriendlyDateFormatter.string(from: Date())
         dateField.inputView = datePicker
         datePicker.datePickerMode = .date
@@ -96,4 +100,30 @@ class NewTaskViewController: UIViewController {
         timeField.text = DateFormatter.userFriendlyTimeFormatter.string(from: timePicker.date)
     }
     
+    @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        
+        let phPickerVC = PHPickerViewController(configuration: config)
+        phPickerVC.delegate = self
+        self.present(phPickerVC, animated: true)
+    }
+}
+
+ // MARK: - PHPickerViewControllerDelegate
+extension NewTaskViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        for item in results {
+            if item.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                item.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            self.taskImage.image = image
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
