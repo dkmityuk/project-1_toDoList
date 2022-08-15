@@ -37,7 +37,6 @@ class TaskTableViewCell: UITableViewCell {
         taskImageView.layer.cornerRadius = 10
     }
 
-    
     @IBAction func isDoneButtonPressed(_ sender: UIButton) {
         isDone.toggle()
         taskStatusChangedHandler?(isDone)

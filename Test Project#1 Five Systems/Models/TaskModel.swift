@@ -5,30 +5,30 @@ struct TaskModel {
   let text: String
   let description: String
   let date: String
-  var isDone: Bool
+  let isDone: Bool
   let taskImage: Data?
 }
 
 extension TaskModel {
-  init?(managedObject: Task) {
+  init?(managedObject: TaskMO) {
     guard
       let title = managedObject.title,
       let date = managedObject.date,
-      let description = managedObject.descr,
-      let taskImage = managedObject.taskImage
+      let description = managedObject.descr
     else { return nil }
     self.text = title
     self.description = description
     self.isDone = managedObject.isDone
     self.date = date
-    self.taskImage = taskImage
+    self.taskImage = managedObject.taskImage
   }
   
-  func fill(to managedObject: Task) {
+  func fill(to managedObject: TaskMO, for user: UserMO) {
     managedObject.title = text
     managedObject.descr = description
     managedObject.date = date
     managedObject.isDone = isDone
     managedObject.taskImage = taskImage
+    managedObject.user = user
   }
 }

@@ -72,8 +72,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         let model = sectionItems[indexPath.section].items[indexPath.row]
         cell.setUp(object: model)
         cell.taskStatusChangedHandler = { [weak self] status in
-//            CoreDataManager.shared.markIsDone
-//            taskTableView.reloadRows(at: [indexPath], with: .automatic)
+            CoreDataManager.shared.markAsDone(task: model, done: status)
         }
         return cell
     }

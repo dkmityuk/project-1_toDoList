@@ -44,7 +44,7 @@ class NewTaskViewController: UIViewController {
             taskImage: taskImage.image?.pngData()
         )
         do {
-            try CoreDataManager.shared.saveTask(task: task)
+            try CoreDataManager.shared.save(task: task)
             refreshDataHandler?()
             dismiss(animated: true)
         } catch let error  {
