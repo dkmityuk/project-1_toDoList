@@ -49,7 +49,6 @@ class TaskViewController: UIViewController {
         }
         present(controller, animated: true, completion: nil)
     }
-    
 }
 
 // MARK: - TableViewDataSource
@@ -72,6 +71,10 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         else { return cell }
         let model = sectionItems[indexPath.section].items[indexPath.row]
         cell.setUp(object: model)
+        cell.taskStatusChangedHandler = { [weak self] status in
+//            CoreDataManager.shared.markIsDone
+//            taskTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
         return cell
     }
     

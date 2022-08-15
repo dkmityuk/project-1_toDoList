@@ -5,7 +5,7 @@ struct TaskModel {
   let text: String
   let description: String
   let date: String
-  let isDone: Bool
+  var isDone: Bool
   let taskImage: Data?
 }
 
