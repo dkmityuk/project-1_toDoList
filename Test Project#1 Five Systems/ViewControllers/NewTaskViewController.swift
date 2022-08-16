@@ -3,6 +3,7 @@ import CoreData
 import PhotosUI
 
 class NewTaskViewController: UIViewController {
+     // MARK: - IBOutlets
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var dateField: UITextField!
@@ -19,7 +20,7 @@ class NewTaskViewController: UIViewController {
         super.viewDidLoad()
         setupDatePicker()
         setupTimePicker()
-        taskImage.image = UIImage(named: "defaultTaskImage")
+//        taskImage.image = UIImage(named: "defaultTaskImage")
     }
     
     private func updatesaveButtonState() {
@@ -35,7 +36,7 @@ class NewTaskViewController: UIViewController {
     }
     
     @IBAction func saveTaskButtonPressed(_ sender: UIButton) {
-        let taks = TaskModel(
+        let task = TaskModel(
             text: titleTextField.text ?? "",
             description: descriptionTextField.text ?? "",
             date: dateField.text ?? "",
@@ -43,7 +44,7 @@ class NewTaskViewController: UIViewController {
             taskImage: taskImage.image?.pngData()
         )
         do {
-            try CoreDataManager.shared.saveTask(task: taks)
+            try CoreDataManager.shared.save(task: task)
             refreshDataHandler?()
             dismiss(animated: true)
         } catch let error  {

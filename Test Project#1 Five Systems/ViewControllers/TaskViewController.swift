@@ -37,7 +37,7 @@ class TaskViewController: UIViewController {
         super.viewDidLoad()
         taskTableView.delegate = self
         taskTableView.dataSource = self
-        taskTableView.register(UINib(nibName: "TTableViewCell", bundle: nil), forCellReuseIdentifier: "TTableViewCell")
+        taskTableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskTableViewCell")
         title = "Tasks"
     }
     
@@ -49,7 +49,6 @@ class TaskViewController: UIViewController {
         }
         present(controller, animated: true, completion: nil)
     }
-    
 }
 
 // MARK: - TableViewDataSource
@@ -65,13 +64,16 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = taskTableView.dequeueReusableCell(withIdentifier: Constants.cellName, for: indexPath) as? TTableViewCell else { return UITableViewCell() }
+        guard let cell = taskTableView.dequeueReusableCell(withIdentifier: Constants.cellName, for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
         guard
             sectionItems.count - 1 >= indexPath.section,
             sectionItems[indexPath.section].items.count - 1 >= indexPath.row
         else { return cell }
         let model = sectionItems[indexPath.section].items[indexPath.row]
         cell.setUp(object: model)
+        cell.taskStatusChangedHandler = { [weak self] status in
+            CoreDataManager.shared.markAsDone(task: model, done: status)
+        }
         return cell
     }
     
@@ -103,5 +105,5 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
 fileprivate enum Constants {
     static let entity = "Task"
     static let sortDate = "date"
-    static let cellName = "TTableViewCell"
+    static let cellName = "TaskTableViewCell"
 }

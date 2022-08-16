@@ -3,20 +3,31 @@ import Foundation
 struct UserModel {
     let name: String
     let email: String
+    let isCurrent: Bool
+    let tasks: [TaskModel]
 }
 
 extension UserModel {
-    init?(UserMO: User) {
+    init?(managedObject: UserMO) {
         guard
-            let name = UserMO.name,
-            let email = UserMO.email
+            let name = managedObject.name,
+            let email = managedObject.email
         else { return nil }
         self.name = name
         self.email = email
+        self.isCurrent = managedObject.isCurrentUser
+      if let array = managedObject.tasks?.allObjects {
+        self.tasks = array
+          .compactMap { $0 as? TaskMO }
+          .compactMap { TaskModel(managedObject: $0) }
+      } else {
+        self.tasks = []
+      }
     }
     
-    func fill(to UserMO: User) {
-        UserMO.name = name
-        UserMO.email = email
+  func fill(to managedObject: UserMO, with tasks: NSSet?) {
+      managedObject.name = name
+      managedObject.email = email
+      managedObject.tasks = tasks
     }
 }

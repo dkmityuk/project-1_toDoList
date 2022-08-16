@@ -26,8 +26,15 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
+        let user = UserModel(name: nameTextField.text ?? "", email: eMailTextField.text ?? "", isCurrent: true, tasks: [])
+        do {
+            try CoreDataManager.shared.save(user: user)
+            print(user)
+        } catch let error  {
+            print(error)
+            print(error.localizedDescription)
+        }
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskViewController
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
 }
