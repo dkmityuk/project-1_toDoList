@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="TaskDateHeader" id="iN0-l3-epB" customClass="TaskDateHeader" customModule="Test_Project_1_Five_Systems" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCn-mb-MCO">
+                    <rect key="frame" x="350" y="17.5" width="54" height="44"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="header"/>
+                    <connections>
+                        <action selector="showTasksButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="zEm-mi-C0y"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Pc-Bq-oXy">
+                    <rect key="frame" x="10" y="25" width="165" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="165" id="ezg-2d-5JA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="4Pc-Bq-oXy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="2gb-NZ-qdy"/>
+                <constraint firstItem="4Pc-Bq-oXy" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Hvf-K2-8Ct"/>
+                <constraint firstItem="4Pc-Bq-oXy" firstAttribute="centerY" secondItem="zCn-mb-MCO" secondAttribute="centerY" id="ZWW-e3-s3U"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zCn-mb-MCO" secondAttribute="trailing" constant="10" id="k0X-R2-2QC"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dateLabel" destination="4Pc-Bq-oXy" id="bnQ-Ht-Ndd"/>
+                <outlet property="showTasksButton" destination="zCn-mb-MCO" id="7KQ-Q8-lQ1"/>
+            </connections>
+            <point key="canvasLocation" x="-417.39130434782612" y="154.35267857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="header" width="30" height="30"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

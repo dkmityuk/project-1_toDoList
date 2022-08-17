@@ -1,10 +1,12 @@
 import UIKit
 import CoreData
+import CoreMedia
 
 // MARK: - SectionModel
 struct SectionModel {
     let title: String
-    let items: [TaskModel]
+    var items: [TaskModel]
+    var isOpen = true
 }
 
 // MARK: - ViewController
@@ -27,7 +29,8 @@ class TaskViewController: UIViewController {
             sections.append(
                 SectionModel(
                     title: date,
-                    items: tasks.filter { $0.date == date })
+                    items: tasks.filter { $0.date == date },
+                    isOpen: false)
             )
         }
         return sections
@@ -38,7 +41,8 @@ class TaskViewController: UIViewController {
         taskTableView.delegate = self
         taskTableView.dataSource = self
         taskTableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskTableViewCell")
-        title = "Tasks"
+        taskTableView.register(UINib(nibName: "TaskDateHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "TaskDateHeader")
+        navigationItem.title = "Tasks"
     }
     
     @IBAction func addNewTaskButtonPressed(_ sender: UIButton) {
@@ -77,12 +81,22 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard sectionItems.count - 1 >= section else { return nil }
-        return sectionItems[section].title
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerName ) as? TaskDateHeader else { return UIView()}
+        let object = sectionItems[section]
+        header.setUp(object: object)
+//        header.showTasksButton.tag = section
+//        header.showTasksButton.addTarget(self, action: #selector(self.openSection), for: .touchUpInside)
+        return header
     }
+//
+//    @objc func openSection(button: UIButton ) {
+//
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard
             sectionItems.count - 1 >= indexPath.section,
             sectionItems[indexPath.section].items.count - 1 >= indexPath.row else { return }
@@ -106,4 +120,5 @@ fileprivate enum Constants {
     static let entity = "Task"
     static let sortDate = "date"
     static let cellName = "TaskTableViewCell"
+    static let headerName = "TaskDateHeader"
 }
