@@ -20,10 +20,10 @@ class TaskDateHeader: UITableViewHeaderFooterView {
         super.awakeFromNib()
     }
 
-    func setUp(object: SectionModel) {
+    func setUp(object: SectionModel, isOpen: Bool) {
         dateLabel.text = object.title
         showTasksButton.setImage(UIImage(named: "headerIsOpen"), for: .normal)
-        isOpen = object.isOpen
+        self.isOpen = isOpen
     }
     @IBAction func showTasksButtonPressed(_ sender: UIButton) {
         isOpen.toggle()

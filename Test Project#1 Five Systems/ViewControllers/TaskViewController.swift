@@ -6,7 +6,12 @@ import CoreMedia
 struct SectionModel {
     let title: String
     var items: [TaskModel]
-    var isOpen = true
+}
+
+extension SectionModel: Equatable {
+  static func == (lhs: SectionModel, rhs: SectionModel) -> Bool {
+    return lhs.title == rhs.title
+  }
 }
 
 // MARK: - ViewController
@@ -25,15 +30,22 @@ class TaskViewController: UIViewController {
             }
         }
         
-        for date in datesArray {
-            sections.append(
-                SectionModel(
-                    title: date,
-                    items: tasks.filter { $0.date == date },
-                    isOpen: false)
+        for date in datesArray.compactMap({ DateFormatter.userFriendlyDateFormatter.date(from: $0) }).sorted(by: { $0 > $1 }) {
+          let dateString = DateFormatter.userFriendlyDateFormatter.string(from: date)
+          sections.append(
+            SectionModel(
+              title: dateString,
+              items: tasks.filter { $0.date == dateString }
             )
+          )
         }
         return sections
+      }
+    
+    private var invisibleSections = [SectionModel]()
+    
+    private func updateDataSource() {
+      
     }
     
     override func viewDidLoad() {
@@ -43,6 +55,7 @@ class TaskViewController: UIViewController {
         taskTableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskTableViewCell")
         taskTableView.register(UINib(nibName: "TaskDateHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "TaskDateHeader")
         navigationItem.title = "Tasks"
+        navigationItem.hidesBackButton = true
     }
     
     @IBAction func addNewTaskButtonPressed(_ sender: UIButton) {
@@ -52,6 +65,11 @@ class TaskViewController: UIViewController {
             self.taskTableView.reloadData()
         }
         present(controller, animated: true, completion: nil)
+    }
+    @IBAction func settingsButtonPressed(_ sender: UIButton) {
+        print("I love Ukraine")
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -64,7 +82,11 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard sectionItems.count - 1 >= section else { return .zero }
-        return sectionItems[section].items.count
+        if !invisibleSections.contains(sectionItems[section]) {
+          return sectionItems[section].items.count
+        } else {
+          return .zero
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,7 +97,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         else { return cell }
         let model = sectionItems[indexPath.section].items[indexPath.row]
         cell.setUp(object: model)
-        cell.taskStatusChangedHandler = { [weak self] status in
+        cell.taskStatusChangedHandler = { status in
             CoreDataManager.shared.markAsDone(task: model, done: status)
         }
         return cell
@@ -85,9 +107,23 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         guard sectionItems.count - 1 >= section else { return nil }
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerName ) as? TaskDateHeader else { return UIView()}
         let object = sectionItems[section]
-        header.setUp(object: object)
-//        header.showTasksButton.tag = section
-//        header.showTasksButton.addTarget(self, action: #selector(self.openSection), for: .touchUpInside)
+        header.setUp(object: object, isOpen: !invisibleSections.contains(object))
+        header.sectionStatusChangedHandler = { [weak self] status in
+          guard let self = self else { return }
+          let indexes = object.items.enumerated().map { IndexPath(row: $0.offset, section: section) }
+          
+          if status {
+            if let index = self.invisibleSections.firstIndex(of: object) {
+              self.invisibleSections.remove(at: index)
+              tableView.insertRows(at: indexes, with: .left)
+            }
+          } else {
+            if !self.invisibleSections.contains(object) {
+              self.invisibleSections.append(object)
+              tableView.deleteRows(at: indexes, with: .right)
+            }
+          }
+        }
         return header
     }
 //

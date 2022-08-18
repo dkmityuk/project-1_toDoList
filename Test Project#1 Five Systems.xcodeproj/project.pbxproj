@@ -23,6 +23,7 @@
 		84AF32C42891ADA900398287 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32C32891ADA900398287 /* LoginViewController.swift */; };
 		84AF32C62891ADBE00398287 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32C52891ADBE00398287 /* TaskViewController.swift */; };
 		84AF32C82891ADE600398287 /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF32C72891ADE600398287 /* NewTaskViewController.swift */; };
+		84B835E428AE421900A310AA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B835E328AE421900A310AA /* SettingsViewController.swift */; };
 		84CCA3BD289A70640010C99A /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CCA3BC289A70640010C99A /* TaskModel.swift */; };
 		84E043BB28A1181300A70E8F /* DetailTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E043BA28A1181300A70E8F /* DetailTaskViewController.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		84AF32C32891ADA900398287 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		84AF32C52891ADBE00398287 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		84AF32C72891ADE600398287 /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
+		84B835E328AE421900A310AA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		84CCA3BC289A70640010C99A /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		84E043BA28A1181300A70E8F /* DetailTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,7 +63,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		84809C8028ABC9E9001C774E /* Custom Headers & Sections */ = {
+		84809C8028ABC9E9001C774E /* CustomHeaders&Sections */ = {
 			isa = PBXGroup;
 			children = (
 				84715EFC28A5293D00732E58 /* TaskTableViewCell.swift */,
@@ -69,7 +71,7 @@
 				84809C7C28AB9989001C774E /* TaskDateHeader.swift */,
 				84809C7E28AB999B001C774E /* TaskDateHeader.xib */,
 			);
-			path = "Custom Headers & Sections";
+			path = "CustomHeaders&Sections";
 			sourceTree = "<group>";
 		};
 		84A1E42E289BBB33004D6FAD /* Extensions */ = {
@@ -114,7 +116,7 @@
 				84AF32CF28929AB800398287 /* ViewControllers */,
 				84A39FE528983B9800EF61C7 /* Models */,
 				84AF32B22891AD7800398287 /* Main.storyboard */,
-				84809C8028ABC9E9001C774E /* Custom Headers & Sections */,
+				84809C8028ABC9E9001C774E /* CustomHeaders&Sections */,
 				84A1E42E289BBB33004D6FAD /* Extensions */,
 				84AF32B82891AD7A00398287 /* Assets.xcassets */,
 				84AF32BA2891AD7A00398287 /* LaunchScreen.storyboard */,
@@ -131,6 +133,7 @@
 				84AF32C52891ADBE00398287 /* TaskViewController.swift */,
 				84AF32C72891ADE600398287 /* NewTaskViewController.swift */,
 				84E043BA28A1181300A70E8F /* DetailTaskViewController.swift */,
+				84B835E328AE421900A310AA /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				84AF32C62891ADBE00398287 /* TaskViewController.swift in Sources */,
 				84AF32B72891AD7800398287 /* Test_Project_1_Five_Systems.xcdatamodeld in Sources */,
 				84AF32C82891ADE600398287 /* NewTaskViewController.swift in Sources */,
+				84B835E428AE421900A310AA /* SettingsViewController.swift in Sources */,
 				840AB1DC2893FE8F00870850 /* CoreDataManager.swift in Sources */,
 				84AF32AF2891AD7800398287 /* SceneDelegate.swift in Sources */,
 				84E043BB28A1181300A70E8F /* DetailTaskViewController.swift in Sources */,
