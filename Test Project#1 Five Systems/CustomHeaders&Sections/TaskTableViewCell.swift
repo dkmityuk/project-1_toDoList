@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskTableViewCell: UITableViewCell {
+final class TaskTableViewCell: UITableViewCell {
     
     @IBOutlet weak var taskNameLabel: UILabel!
     @IBOutlet weak var taskDescriptionLabel: UILabel!

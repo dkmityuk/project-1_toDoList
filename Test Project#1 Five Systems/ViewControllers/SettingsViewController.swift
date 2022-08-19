@@ -13,9 +13,8 @@ final class SettingsViewController: UIViewController {
     }
     
     private func setupLabels() {
-        guard let user = user else { return }
-        userNameLabel.text = user.name
-        userEmailLabel.text = user.email
+        userNameLabel.text = user?.name
+        userEmailLabel.text = user?.email
     }
     
     @IBAction func logOutButtonPressed(_ sender: UIButton) {

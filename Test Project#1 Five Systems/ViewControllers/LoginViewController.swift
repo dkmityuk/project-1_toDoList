@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!

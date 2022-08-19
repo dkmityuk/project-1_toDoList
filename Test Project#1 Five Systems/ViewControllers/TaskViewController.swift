@@ -15,7 +15,7 @@ extension SectionModel: Equatable {
 }
 
 // MARK: - ViewController
-class TaskViewController: UIViewController {
+final class TaskViewController: UIViewController {
     
     @IBOutlet weak var taskTableView: UITableView!
     
@@ -126,10 +126,6 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return header
     }
-//
-//    @objc func openSection(button: UIButton ) {
-//
-//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

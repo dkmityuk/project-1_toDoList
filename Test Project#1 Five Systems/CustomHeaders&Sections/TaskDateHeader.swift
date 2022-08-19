@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskDateHeader: UITableViewHeaderFooterView {
+final class TaskDateHeader: UITableViewHeaderFooterView {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var showTasksButton: UIButton!
@@ -22,9 +22,9 @@ class TaskDateHeader: UITableViewHeaderFooterView {
 
     func setUp(object: SectionModel, isOpen: Bool) {
         dateLabel.text = object.title
-        showTasksButton.setImage(UIImage(named: "headerIsOpen"), for: .normal)
         self.isOpen = isOpen
     }
+    
     @IBAction func showTasksButtonPressed(_ sender: UIButton) {
         isOpen.toggle()
         sectionStatusChangedHandler?(isOpen)
