@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 import PhotosUI
 
-class NewTaskViewController: UIViewController {
+final class NewTaskViewController: UIViewController {
      // MARK: - IBOutlets
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!

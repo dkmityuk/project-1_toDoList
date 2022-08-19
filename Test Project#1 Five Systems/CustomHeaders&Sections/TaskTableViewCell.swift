@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskTableViewCell: UITableViewCell {
+final class TaskTableViewCell: UITableViewCell {
     
     @IBOutlet weak var taskNameLabel: UILabel!
     @IBOutlet weak var taskDescriptionLabel: UILabel!
@@ -9,7 +9,7 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var isDoneButton: UIButton!
     
     var taskStatusChangedHandler: ((Bool) -> Void)?
-    private var isDone = false {
+    private var isDone = true {
         willSet {
             if newValue {
                 isDoneButton.setImage(UIImage(named: "isDoneTrue"), for: .normal)
