@@ -26,6 +26,8 @@
 				</dict>
 			</array>
 		</dict>
+		<key>Privacy - Camera Usage Description</key>
+		<false/>
 	</dict>
 </dict>
 </plist>

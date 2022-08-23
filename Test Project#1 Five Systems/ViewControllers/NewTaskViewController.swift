@@ -12,6 +12,7 @@ final class NewTaskViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var taskImage: UIImageView!
     
+    @IBOutlet weak var addImageButton: UIButton!
     private let datePicker = UIDatePicker()
     private let timePicker = UIDatePicker()
     
@@ -120,29 +121,41 @@ final class NewTaskViewController: UIViewController {
     }
     
     @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
-        var config = PHPickerConfiguration()
-        config.selectionLimit = 1
-        
-        let phPickerVC = PHPickerViewController(configuration: config)
-        phPickerVC.delegate = self
-        self.present(phPickerVC, animated: true)
+        showChooseSourceTypeAlertController()
     }
+    
+        
 }
 
-// MARK: - PHPickerViewControllerDelegate
-extension NewTaskViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        dismiss(animated: true)
-        for item in results {
-            if item.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                item.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                    if let image = image as? UIImage {
-                        DispatchQueue.main.async {
-                            self.taskImage.image = image
-                        }
-                    }
-                }
-            }
+// MARK: - ImageickerViewControllerDelegate
+
+extension NewTaskViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func showChooseSourceTypeAlertController() {
+        let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .photoLibrary)
         }
+        let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
+            self.showImagePickerController(sourceType: .camera)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
     }
+
+    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = sourceType
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        taskImage.image = editedImage.withRenderingMode(.alwaysOriginal)
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        taskImage.image = originalImage.withRenderingMode(.alwaysOriginal)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+
 }
