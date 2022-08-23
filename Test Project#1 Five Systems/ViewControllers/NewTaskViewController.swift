@@ -1,9 +1,10 @@
 import UIKit
 import CoreData
 import PhotosUI
+import UserNotifications
 
 final class NewTaskViewController: UIViewController {
-     // MARK: - IBOutlets
+    // MARK: - IBOutlets
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var dateField: UITextField!
@@ -15,12 +16,11 @@ final class NewTaskViewController: UIViewController {
     private let timePicker = UIDatePicker()
     
     var refreshDataHandler: (() -> Void)?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDatePicker()
         setupTimePicker()
-//        taskImage.image = UIImage(named: "defaultTaskImage")
     }
     
     private func updatesaveButtonState() {
@@ -42,7 +42,25 @@ final class NewTaskViewController: UIViewController {
             date: dateField.text ?? "",
             isDone: false,
             taskImage: taskImage.image?.pngData()
+//            reminder: timePicker.date
         )
+
+//        let center  = UNUserNotificationCenter.current()
+//
+//        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+//        }
+//        let content = UNMutableNotificationContent()
+//        content.title = titleTextField.text ?? ""
+//        content.body = descriptionTextField.text ?? ""
+//        let date = Date().addingTimeInterval(5)
+//        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+//
+//        let uuidString = UUID().uuidString
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+//        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+//        center.add(request) { (error) in
+//
+//        }
         do {
             try CoreDataManager.shared.save(task: task)
             refreshDataHandler?()
@@ -111,7 +129,7 @@ final class NewTaskViewController: UIViewController {
     }
 }
 
- // MARK: - PHPickerViewControllerDelegate
+// MARK: - PHPickerViewControllerDelegate
 extension NewTaskViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
