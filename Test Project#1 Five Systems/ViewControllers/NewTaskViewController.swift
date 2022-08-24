@@ -46,22 +46,6 @@ final class NewTaskViewController: UIViewController {
 //            reminder: timePicker.date
         )
 
-//        let center  = UNUserNotificationCenter.current()
-//
-//        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-//        }
-//        let content = UNMutableNotificationContent()
-//        content.title = titleTextField.text ?? ""
-//        content.body = descriptionTextField.text ?? ""
-//        let date = Date().addingTimeInterval(5)
-//        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-//
-//        let uuidString = UUID().uuidString
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-//        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-//        center.add(request) { (error) in
-//
-//        }
         do {
             try CoreDataManager.shared.save(task: task)
             refreshDataHandler?()
@@ -157,5 +141,4 @@ extension NewTaskViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         dismiss(animated: true, completion: nil)
     }
-
 }
