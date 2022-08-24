@@ -51,6 +51,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
+                                    <action selector="emailChanged:" destination="7F9-xX-WO5" eventType="editingChanged" id="yxz-ou-FCH"/>
                                     <action selector="textChanged:" destination="7F9-xX-WO5" eventType="editingChanged" id="pGq-er-FXO"/>
                                 </connections>
                             </textField>
@@ -65,6 +66,12 @@
                                     <action selector="nextButtonPressed:" destination="7F9-xX-WO5" eventType="touchUpInside" id="juT-L7-4c1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0k-rB-z21">
+                                <rect key="frame" x="15" y="418" width="379" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3uS-Kb-9Yp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -77,6 +84,9 @@
                             <constraint firstItem="gPK-eQ-9hA" firstAttribute="top" secondItem="Rqe-6F-3uO" secondAttribute="bottom" constant="90.5" id="HgC-nc-7bL"/>
                             <constraint firstItem="jml-NN-k5a" firstAttribute="leading" secondItem="lSs-i9-omg" secondAttribute="leading" id="MnM-Tf-iDs"/>
                             <constraint firstItem="uTY-gS-X6E" firstAttribute="leading" secondItem="lSs-i9-omg" secondAttribute="leading" id="SGU-PH-sVa"/>
+                            <constraint firstItem="V0k-rB-z21" firstAttribute="trailing" secondItem="lSs-i9-omg" secondAttribute="trailing" constant="-5" id="TWc-3M-aGh"/>
+                            <constraint firstItem="V0k-rB-z21" firstAttribute="top" secondItem="lSs-i9-omg" secondAttribute="bottom" constant="8" symbolic="YES" id="TWd-Ph-PgX"/>
+                            <constraint firstItem="V0k-rB-z21" firstAttribute="leading" secondItem="lSs-i9-omg" secondAttribute="leading" id="V84-zL-vFV"/>
                             <constraint firstItem="Rqe-6F-3uO" firstAttribute="centerX" secondItem="rTh-EU-55M" secondAttribute="centerX" id="VRF-Bl-ZMT"/>
                             <constraint firstItem="lSs-i9-omg" firstAttribute="trailing" secondItem="gPK-eQ-9hA" secondAttribute="trailing" id="Wjl-5r-j4k"/>
                             <constraint firstItem="Rqe-6F-3uO" firstAttribute="centerX" secondItem="WdN-3d-S8q" secondAttribute="centerX" id="Y2A-TI-wmM"/>
@@ -99,6 +109,7 @@
                     <connections>
                         <outlet property="eMailLabel" destination="uTY-gS-X6E" id="730-PV-mba"/>
                         <outlet property="eMailTextField" destination="lSs-i9-omg" id="bSG-PU-gOf"/>
+                        <outlet property="emailError" destination="V0k-rB-z21" id="IxS-cj-Ooa"/>
                         <outlet property="headerLabel" destination="Rqe-6F-3uO" id="ITm-Wo-Oiy"/>
                         <outlet property="nameLabel" destination="jml-NN-k5a" id="0SZ-Ib-xDb"/>
                         <outlet property="nameTextField" destination="gPK-eQ-9hA" id="Uls-3x-73F"/>
@@ -516,6 +527,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
