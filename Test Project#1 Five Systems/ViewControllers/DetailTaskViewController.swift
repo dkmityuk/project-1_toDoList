@@ -16,7 +16,7 @@ final class DetailTaskViewController: UIViewController {
     }
     
     @IBAction func shareTask() {
-        let shareController = UIActivityViewController(activityItems: [selectedTask?.description], applicationActivities: nil)
+        let shareController = UIActivityViewController(activityItems: [selectedTask?.taskImage ?? "", selectedTask?.text ?? "", selectedTask?.description ?? ""], applicationActivities: nil)
         shareController.completionWithItemsHandler = { _, bool, _, _ in
             if bool {
                 print("succsesfool")
