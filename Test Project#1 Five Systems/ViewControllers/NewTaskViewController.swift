@@ -12,8 +12,8 @@ final class NewTaskViewController: UIViewController {
     @IBOutlet weak var timeField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var taskImage: UIImageView!
-    
     @IBOutlet weak var addImageButton: UIButton!
+    
     private let datePicker = UIDatePicker()
     private let timePicker = UIDatePicker()
     
@@ -25,16 +25,12 @@ final class NewTaskViewController: UIViewController {
         setupTimePicker()
     }
     
-    private func updatesaveButtonState() {
-        let titleText = titleTextField.text ?? ""
-        let descriptionText = descriptionTextField.text ?? ""
-        let dateText = dateField.text ?? ""
-        
-        saveButton.isEnabled = !dateText.isEmpty && !titleText.isEmpty && !descriptionText.isEmpty
-    }
-    
     @IBAction func textChanged(_ sender: UITextField) {
         updatesaveButtonState()
+    }
+    
+    @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
+        showChooseSourceTypeAlertController()
     }
     
     @IBAction func saveTaskButtonPressed(_ sender: UIButton) {
@@ -44,7 +40,6 @@ final class NewTaskViewController: UIViewController {
             date: dateField.text ?? "",
             isDone: false,
             taskImage: taskImage.image?.pngData()
-//            reminder: timePicker.date
         )
         do {
             try CoreDataManager.shared.save(task: task)
@@ -54,6 +49,13 @@ final class NewTaskViewController: UIViewController {
             print(error)
             print(error.localizedDescription)
         }
+    }
+    
+    private func updatesaveButtonState() {
+        let titleText = titleTextField.text ?? ""
+        let descriptionText = descriptionTextField.text ?? ""
+        let dateText = dateField.text ?? ""
+        saveButton.isEnabled = !dateText.isEmpty && !titleText.isEmpty && !descriptionText.isEmpty
     }
     
     private func setupDatePicker() {
@@ -67,7 +69,6 @@ final class NewTaskViewController: UIViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.sizeToFit()
         toolbar.setItems([flexSpace,doneButton], animated: true)
-        
         dateField.inputAccessoryView = toolbar
     }
     
@@ -91,7 +92,6 @@ final class NewTaskViewController: UIViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.sizeToFit()
         toolbar.setItems([flexSpace,doneButton], animated: true)
-        
         timeField.inputAccessoryView = toolbar
     }
     
@@ -103,16 +103,11 @@ final class NewTaskViewController: UIViewController {
     private func getTimeFromPicker() {
         timeField.text = DateFormatter.userFriendlyTimeFormatter.string(from: timePicker.date)
     }
-    
-    @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
-        showChooseSourceTypeAlertController()
-    }
 }
 
-// MARK: - ImageickerViewControllerDelegate
-
+// MARK: - ImageickerViewDelegate
 extension NewTaskViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func showChooseSourceTypeAlertController() {
+    func showChooseSourceTypeAlertController(){
         let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
             self.showImagePickerController(sourceType: .photoLibrary)
         }
@@ -124,11 +119,13 @@ extension NewTaskViewController: UIImagePickerControllerDelegate, UINavigationCo
     }
 
     func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        imagePickerController.sourceType = sourceType
-        present(imagePickerController, animated: true, completion: nil)
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.allowsEditing = true
+            imagePickerController.sourceType = sourceType
+            present(imagePickerController, animated: true, completion: nil)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

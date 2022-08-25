@@ -16,6 +16,7 @@ final class LoginViewController: UIViewController {
         setupUI()
     }
   
+     // MARK: - IBActions
     @IBAction func textChanged(_ sender: UITextField) {
         updateNextButtonState()
     }
@@ -24,7 +25,6 @@ final class LoginViewController: UIViewController {
         let user = UserModel(name: nameTextField.text ?? "", email: eMailTextField.text ?? "", isCurrent: true, tasks: [])
         do {
             try CoreDataManager.shared.save(user: user)
-            print(user)
         } catch let error  {
             print(error)
             print(error.localizedDescription)
@@ -33,6 +33,7 @@ final class LoginViewController: UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+     // MARK: - Private methods
     private func setupUI() {
         emailError.isHidden = true
         nextButton.isEnabled = false
