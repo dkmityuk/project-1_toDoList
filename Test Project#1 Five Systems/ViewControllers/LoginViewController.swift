@@ -2,74 +2,20 @@ import UIKit
 
 final class LoginViewController: UIViewController {
 
+     // MARK: - IBOutlets
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var eMailLabel: UILabel!
     @IBOutlet weak var emailError: UILabel!
-    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var eMailTextField: UITextField!
- 
     @IBOutlet weak var nextButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetForm()
+        setupUI()
     }
-    
-    private func resetForm() {
-        emailError.isHidden = false
-        nextButton.isEnabled = false
-    }
-        
-       private func invalidEmail(_ value: String) -> String?
-        {
-            let reqularExpression = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-            let predicate = NSPredicate(format: "SELF MATCHES %@", reqularExpression)
-            if !predicate.evaluate(with: value)
-            {
-                return "e-mail is not valid."
-            }
-            
-            return nil
-        }
-    
-    private func checkForValidForm()
-        {
-            if emailError.isHidden
-            {
-                nextButton.isEnabled = true
-            }
-            else
-            {
-                nextButton.isEnabled = false
-            }
-        }
-    
-    private func updateNextButtonState(){
-        let nameText = nameTextField.text ?? ""
-        let eMailText = eMailTextField.text ?? ""
-        nextButton.isEnabled = !nameText.isEmpty && !eMailText.isEmpty
-    }
-    
-    @IBAction func emailChanged(_ sender: Any)
-        {
-            if let email = eMailTextField.text
-            {
-                if let errorMessage = invalidEmail(email)
-                {
-                    emailError.text = errorMessage
-                    emailError.isHidden = false
-                }
-                else
-                {
-                    emailError.isHidden = true
-                }
-            }
-            
-            checkForValidForm()
-        }
-    
+  
     @IBAction func textChanged(_ sender: UITextField) {
         updateNextButtonState()
     }
@@ -86,4 +32,25 @@ final class LoginViewController: UIViewController {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "TaskViewController") as! TaskViewController
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    private func setupUI() {
+        emailError.isHidden = true
+        nextButton.isEnabled = false
+    }
+
+    private func updateNextButtonState() {
+        let nameText = nameTextField.text ?? ""
+        let eMailText = eMailTextField.text ?? ""
+        nextButton.isEnabled = !nameText.isEmpty && eMailText.isValidEmail()
+        emailError.isHidden = nextButton.isEnabled
+    }
+}
+
+// MARK: - Email check
+extension String {
+  func isValidEmail() -> Bool {
+    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+    let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    return emailPred.evaluate(with: self)
+  }
 }

@@ -4,6 +4,7 @@ import PhotosUI
 import UserNotifications
 
 final class NewTaskViewController: UIViewController {
+    
     // MARK: - IBOutlets
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -45,7 +46,6 @@ final class NewTaskViewController: UIViewController {
             taskImage: taskImage.image?.pngData()
 //            reminder: timePicker.date
         )
-
         do {
             try CoreDataManager.shared.save(task: task)
             refreshDataHandler?()
@@ -107,8 +107,6 @@ final class NewTaskViewController: UIViewController {
     @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
         showChooseSourceTypeAlertController()
     }
-    
-        
 }
 
 // MARK: - ImageickerViewControllerDelegate

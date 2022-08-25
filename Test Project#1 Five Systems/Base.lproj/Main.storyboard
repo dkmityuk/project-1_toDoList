@@ -51,7 +51,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="emailChanged:" destination="7F9-xX-WO5" eventType="editingChanged" id="yxz-ou-FCH"/>
                                     <action selector="textChanged:" destination="7F9-xX-WO5" eventType="editingChanged" id="pGq-er-FXO"/>
                                 </connections>
                             </textField>
@@ -66,8 +65,8 @@
                                     <action selector="nextButtonPressed:" destination="7F9-xX-WO5" eventType="touchUpInside" id="juT-L7-4c1"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0k-rB-z21">
-                                <rect key="frame" x="15" y="418" width="379" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="e-mail is not valid." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0k-rB-z21">
+                                <rect key="frame" x="15" y="418" width="379" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
