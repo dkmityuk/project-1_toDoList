@@ -30,7 +30,7 @@ final class NewTaskViewController: UIViewController {
     }
     
     @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
-        showChooseSourceTypeAlertController()
+        showAlertactionSheet()
     }
     
     @IBAction func saveTaskButtonPressed(_ sender: UIButton) {
@@ -58,6 +58,7 @@ final class NewTaskViewController: UIViewController {
         saveButton.isEnabled = !dateText.isEmpty && !titleText.isEmpty && !descriptionText.isEmpty
     }
     
+     // MARK: - SetupDate&TimePickers
     private func setupDatePicker() {
         dateField.text = DateFormatter.userFriendlyDateFormatter.string(from: Date())
         dateField.inputView = datePicker
@@ -103,37 +104,42 @@ final class NewTaskViewController: UIViewController {
     private func getTimeFromPicker() {
         timeField.text = DateFormatter.userFriendlyTimeFormatter.string(from: timePicker.date)
     }
+    
+    private func showAlertactionSheet() {
+        let alert = UIAlertController(title: "Add photo", message: "Choose course", preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default) { _ in
+        self.showPicker(source: .camera)
+        } 
+        let library = UIAlertAction(title: "Library", style: .default) { _ in
+        self.showPicker(source: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "cancel", style: .cancel)
+        alert.addAction(camera)
+        alert.addAction(library)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+    
+    private func showPicker(source: UIImagePickerController.SourceType) {
+                let picker = UIImagePickerController()
+                picker.sourceType = source
+                picker.allowsEditing = true
+                picker.delegate = self
+                present(picker, animated: true, completion: nil)
+    }
 }
 
 // MARK: - ImageickerViewDelegate
 extension NewTaskViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func showChooseSourceTypeAlertController(){
-        let photoLibraryAction = UIAlertAction(title: "Choose a Photo", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .photoLibrary)
-        }
-        let cameraAction = UIAlertAction(title: "Take a New Photo", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .camera)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        AlertService.showAlert(style: .actionSheet, title: nil, message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
-    }
-
-    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.allowsEditing = true
-            imagePickerController.sourceType = sourceType
-            present(imagePickerController, animated: true, completion: nil)
-        }
-    }
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-        taskImage.image = editedImage.withRenderingMode(.alwaysOriginal)
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-        taskImage.image = originalImage.withRenderingMode(.alwaysOriginal)
+        var chosenImage = UIImage()
+        
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            chosenImage = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            chosenImage = image
         }
-        dismiss(animated: true, completion: nil)
+        taskImage.image = chosenImage
+        picker.dismiss(animated: true, completion: nil)
     }
 }

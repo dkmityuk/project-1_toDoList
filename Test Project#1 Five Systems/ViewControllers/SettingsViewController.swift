@@ -21,16 +21,5 @@ final class SettingsViewController: UIViewController {
     @IBAction func logOutButtonPressed(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
-    
-//    @IBAction func remindersSwitchOn(_ sender: UISwitch) {
-//        print(1234)
-//        // 1
-//        NotificationManager.shared.requestAuthorization { [self] granted in
-//          // 2
-//          if granted {
-//              showNotificationSettingsUI = true
-//          }
-//        }
-//    }
-    
+     
 }

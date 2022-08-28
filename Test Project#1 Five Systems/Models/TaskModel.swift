@@ -7,8 +7,6 @@ struct TaskModel {
   let date: String
   let isDone: Bool
   let taskImage: Data?
-//  var reminderEnabled = false
-//  var reminder: Date?
 }
 
 extension TaskModel {

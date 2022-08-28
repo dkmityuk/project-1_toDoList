@@ -41,11 +41,8 @@ final class TaskViewController: UIViewController {
         }
         return sections
       }
-    
     private var invisibleSections = [SectionModel]()
-    
     private func updateDataSource() {
-      
     }
     
     override func viewDidLoad() {
