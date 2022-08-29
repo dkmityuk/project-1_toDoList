@@ -6,6 +6,7 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var userEmailLabel: UILabel!
     
     let user: UserModel? = CoreDataManager.shared.fetchCurrentUser()
+    var showNotificationSettingsUI = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,4 +21,5 @@ final class SettingsViewController: UIViewController {
     @IBAction func logOutButtonPressed(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
+     
 }

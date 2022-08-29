@@ -1,38 +1,36 @@
 import UIKit
 import CoreData
 import PhotosUI
+import UserNotifications
 
 final class NewTaskViewController: UIViewController {
-     // MARK: - IBOutlets
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var timeField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var taskImage: UIImageView!
+    @IBOutlet weak var addImageButton: UIButton!
     
     private let datePicker = UIDatePicker()
     private let timePicker = UIDatePicker()
     
     var refreshDataHandler: (() -> Void)?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDatePicker()
         setupTimePicker()
-//        taskImage.image = UIImage(named: "defaultTaskImage")
-    }
-    
-    private func updatesaveButtonState() {
-        let titleText = titleTextField.text ?? ""
-        let descriptionText = descriptionTextField.text ?? ""
-        let dateText = dateField.text ?? ""
-        
-        saveButton.isEnabled = !dateText.isEmpty && !titleText.isEmpty && !descriptionText.isEmpty
     }
     
     @IBAction func textChanged(_ sender: UITextField) {
         updatesaveButtonState()
+    }
+    
+    @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
+        showAlertactionSheet()
     }
     
     @IBAction func saveTaskButtonPressed(_ sender: UIButton) {
@@ -53,6 +51,14 @@ final class NewTaskViewController: UIViewController {
         }
     }
     
+    private func updatesaveButtonState() {
+        let titleText = titleTextField.text ?? ""
+        let descriptionText = descriptionTextField.text ?? ""
+        let dateText = dateField.text ?? ""
+        saveButton.isEnabled = !dateText.isEmpty && !titleText.isEmpty && !descriptionText.isEmpty
+    }
+    
+     // MARK: - SetupDate&TimePickers
     private func setupDatePicker() {
         dateField.text = DateFormatter.userFriendlyDateFormatter.string(from: Date())
         dateField.inputView = datePicker
@@ -64,7 +70,6 @@ final class NewTaskViewController: UIViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.sizeToFit()
         toolbar.setItems([flexSpace,doneButton], animated: true)
-        
         dateField.inputAccessoryView = toolbar
     }
     
@@ -88,7 +93,6 @@ final class NewTaskViewController: UIViewController {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.sizeToFit()
         toolbar.setItems([flexSpace,doneButton], animated: true)
-        
         timeField.inputAccessoryView = toolbar
     }
     
@@ -101,30 +105,41 @@ final class NewTaskViewController: UIViewController {
         timeField.text = DateFormatter.userFriendlyTimeFormatter.string(from: timePicker.date)
     }
     
-    @IBAction func addPhotoButtonPressed(_ sender: UIButton) {
-        var config = PHPickerConfiguration()
-        config.selectionLimit = 1
-        
-        let phPickerVC = PHPickerViewController(configuration: config)
-        phPickerVC.delegate = self
-        self.present(phPickerVC, animated: true)
+    private func showAlertactionSheet() {
+        let alert = UIAlertController(title: "Add photo", message: "Choose course", preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default) { _ in
+        self.showPicker(source: .camera)
+        } 
+        let library = UIAlertAction(title: "Library", style: .default) { _ in
+        self.showPicker(source: .photoLibrary)
+        }
+        let cancel = UIAlertAction(title: "cancel", style: .cancel)
+        alert.addAction(camera)
+        alert.addAction(library)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+    
+    private func showPicker(source: UIImagePickerController.SourceType) {
+                let picker = UIImagePickerController()
+                picker.sourceType = source
+                picker.allowsEditing = true
+                picker.delegate = self
+                present(picker, animated: true, completion: nil)
     }
 }
 
- // MARK: - PHPickerViewControllerDelegate
-extension NewTaskViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        dismiss(animated: true)
-        for item in results {
-            if item.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                item.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                    if let image = image as? UIImage {
-                        DispatchQueue.main.async {
-                            self.taskImage.image = image
-                        }
-                    }
-                }
-            }
+// MARK: - ImageickerViewDelegate
+extension NewTaskViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var chosenImage = UIImage()
+        
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            chosenImage = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            chosenImage = image
         }
+        taskImage.image = chosenImage
+        picker.dismiss(animated: true, completion: nil)
     }
 }
